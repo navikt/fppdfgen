@@ -1,5 +1,5 @@
 # FpPdfGen
-Repository for team foreldrepenger pdfgen templates.
+Repository for team foreldrepenger pdfgen templates, based on [pdfgen](https://github.com/navikt/pdfgen) and [syfopdfgen](https://github.com/navikt/syfopdfgen).
 
 ## Technologies & Tools
 
