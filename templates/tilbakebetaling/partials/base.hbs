@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{> doctitle}}</title>
+    {{#block 'tilbakebetaling/partials/style' }}
+    {{/block}}
+</head>
+<body>
+<div id="header">
+    <img class="navlogo" src="{{ image "Navlogo.png" }}"/>
+    <h1 class="title">{{> title}}</h1>
+</div>
+<div class="container">
+    <div class="personinfo">
+        <div class="persontekst">
+            <div class="persontekst__sidetopp">
+                <img class="personikon" src="{{ image "Personikon.png" }}"/>
+                <div class="persontekst__personalia">
+                    <p class="navn">
+                        {{ navn }}
+                    </p>
+                    <p class="id">
+                        {{ insert_at fnr 6 }}
+                    </p>
+                </div>
+                <div class="sendt">
+                    {{# if innsendtDato}}
+                        <p>
+                            Sendt til NAV<br/>{{ iso_to_date innsendtDato }}
+                        </p>
+                    {{/if}}
+                </div>
+                {{#eq tilsvartype "INGEN_TILSVAR" }}
+                  <p class="header__tittel notification green">
+                    Dette dokumentet er opprettet automatisk som en følge av at det ikke er kommet inn tilsvar før frist.
+                  </p>
+                {{/eq}}
+                {{#eq tilsvartype "SAKSBEHANDLER" }}
+                  <p class="header__tittel notification blue">
+                    Dette tilsvaret er registrert av saksbehandler på vegne av {{ navn }}.
+                  </p>
+                {{/eq}}
+            </div>
+
+            <p class="header__tittel">
+                Gjelder saksnummer
+            </p>
+            <p>
+                {{ saksnummer }}
+            </p>
+
+            <p class="header__tittel">
+                Dato for varsel om tilbakekreving
+            </p>
+            <p>
+                {{ iso_to_date varselDato }}
+            </p>
+
+            {{# if tilsvar }}
+            <p class="header__tittel">
+                Tilsvar
+            </p>
+            <p>
+                {{ tilsvar }}
+            </p>
+            {{/if}}
+
+            {{# unless tilsvar }} 
+            <p class="header__tittel">
+                Tilsvar
+            </p>
+            <p>
+                Det er ikke innkommet tilsvar fra {{navn}}.
+            </p>
+            {{/unless}}
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <span class="soknadsid">{{ soknadsId }}</span>
+    <span class="sidetall">side <span id="pagenumber"></span> av <span id="pagecount"></span></span>
+</div>
+</body>
+</html>
