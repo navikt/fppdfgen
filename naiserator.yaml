@@ -4,7 +4,7 @@ metadata:
   name: fppdfgen
   namespace: default
   labels:
-    team: {{team}}
+    team: teamforeldrepenger
 spec:
   image: "docker.pkg.github.com/navikt/fppdfgen:{{tag}}"
   port: 8080
