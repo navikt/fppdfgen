@@ -42,3 +42,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLUSTER: dev-fss
           RESOURCE: naiserator.yaml
+          IMAGE: $(cat .docker_tag)
