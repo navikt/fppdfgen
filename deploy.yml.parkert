@@ -43,3 +43,4 @@ jobs:
           cluster: prod-fss
           team: teamforeldrepenger
           resources: naiserator.yaml
+  
