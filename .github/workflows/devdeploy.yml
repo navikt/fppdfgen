@@ -9,8 +9,8 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  build-push:
-    name: Checkout code and create docker tag
+  build:
+    name: Checkout code, build and push
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -32,13 +32,13 @@ jobs:
 
   deploy:
     name: deploy to dev-fss
-    needs: build-push
+    needs: build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: nais/deploy/actions/deploy@v1
-      env:
-        APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        CLUSTER: dev-fss
-        RESOURCE: naiserator.yaml
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CLUSTER: dev-fss
+          RESOURCE: naiserator.yaml
