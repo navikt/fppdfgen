@@ -9,7 +9,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  build-push-deploy:
+  build-push:
     name: Checkout code and create docker tag
     runs-on: ubuntu-latest
     steps:
@@ -29,11 +29,17 @@ jobs:
           echo $GITHUB_TOKEN | docker login --username "x-access-token" --password-stdin https://docker.pkg.github.com
       - name: Push Docker image
         run: "docker push $(cat .docker_image):$(cat .docker_tag)"
-      - name: deploy to dev-fss
-        uses: navikt/deployment-cli/action@0.4.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          cluster: dev-fss
-          team: teamforeldrepenger
-          resources: naiserator.yaml
+
+  deploy:
+    name: deploy to dev-fss
+    needs: build-push
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: nais/deploy/actions/deploy@v1
+      env:
+        APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CLUSTER: dev-fss
+        RESOURCE: naiserator.yaml
+        DRY-RUN: true
