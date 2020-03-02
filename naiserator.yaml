@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamforeldrepenger
 spec:
-  image: "docker.pkg.github.com/navikt/fppdfgen:{{image}}"
+  image: {{image}}
   port: 8080
   replicas:
     min: 1

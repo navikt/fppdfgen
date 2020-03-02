@@ -7,6 +7,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/fppdfgen
 
 jobs:
   build:
@@ -14,21 +15,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+
+      - name: Hent tag
+        run: echo "::set-env name=TAG::$(git log -1 --pretty='%ad' --date=format:'%Y%m%d%H%M%S')-$(echo $GITHUB_SHA | cut -c1-7)"
+
       - name: Create Docker tag
         env:
           NAME: fppdfgen
         run: |
-          echo "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker_image
-          echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" > .docker_tag
-      - name: Build Docker image
+          echo "::set-env name=IMAGE::$IMAGE_BASE:$TAG"
+          docker build --tag ${IMAGE} .
+
+      - name: Build, tag og push Docker image
         run: |
-          docker build -t $(cat .docker_image):$(cat .docker_tag) .
-      - name: Login to Github Package Registry
-        run: |
+          docker build --tag $IMAGE --tag $IMAGE_BASE:latest .
           echo $GITHUB_TOKEN | docker login --username "x-access-token" --password-stdin https://docker.pkg.github.com
-      - name: Push Docker image
-        run: "docker push $(cat .docker_image):$(cat .docker_tag)"
+          docker push $IMAGE_BASE
 
   deploy:
     name: deploy to dev-fss
@@ -36,10 +39,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+        with:
+          ref: ${{ env.TAG }}
       - uses: nais/deploy/actions/deploy@v1
         env:
+          PRINT_PAYLOAD: true
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLUSTER: dev-fss
           RESOURCE: naiserator.yaml
-          IMAGE: $(cat .docker_tag)
+          IMAGE: $IMAGE
