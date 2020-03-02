@@ -38,6 +38,6 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-fss
           NAMESPACE: q1
-          INGRESSES: ["https://fppdfgen.nais.preprod.local"]
+          INGRESSES: https://fppdfgen.nais.preprod.local
           RESOURCE: naiserator.yaml
 
