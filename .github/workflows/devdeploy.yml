@@ -25,7 +25,6 @@ jobs:
           NAME: fppdfgen
         run: |
           echo "::set-env name=IMAGE::$IMAGE_BASE:$TAG"
-          docker build --tag ${IMAGE} .
 
       - name: Build, tag og push Docker image
         run: |
