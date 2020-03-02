@@ -7,7 +7,10 @@ metadata:
     team: teamforeldrepenger
 spec:
   image: {{image}}
-  ingresses: {{ingresses}}
+  ingresses:
+  {{#each ingresses as |url|}}
+     - {{url}}
+  {{/each}}
   port: 8080
   replicas:
     min: 1
