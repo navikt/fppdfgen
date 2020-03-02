@@ -2,11 +2,12 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: fppdfgen
-  namespace: default
+  namespace: {{namespace}}
   labels:
     team: teamforeldrepenger
 spec:
   image: {{image}}
+  ingresses: {{ingresses}}
   port: 8080
   replicas:
     min: 1
