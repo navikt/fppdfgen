@@ -27,7 +27,7 @@
                 <div class="sendt">
                     {{# if innsendtDato}}
                         <p>
-                            Sendt til NAV<br/>{{ iso_to_date innsendtDato }}
+                            Sendt til NAV<br/>{{ iso_to_nor_date innsendtDato }}
                         </p>
                     {{/if}}
                 </div>
@@ -66,7 +66,7 @@
             </p>
             {{/if}}
 
-            {{# unless tilsvar }} 
+            {{# unless tilsvar }}
             <p class="header__tittel">
                 Tilsvar
             </p>
