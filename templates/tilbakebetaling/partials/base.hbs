@@ -31,16 +31,6 @@
                         </p>
                     {{/if}}
                 </div>
-                {{#eq tilsvartype "INGEN_TILSVAR" }}
-                  <p class="header__tittel notification green">
-                    Dette dokumentet er opprettet automatisk som en følge av at det ikke er kommet inn tilsvar før frist.
-                  </p>
-                {{/eq}}
-                {{#eq tilsvartype "SAKSBEHANDLER" }}
-                  <p class="header__tittel notification blue">
-                    Dette tilsvaret er registrert av saksbehandler på vegne av {{ navn }}.
-                  </p>
-                {{/eq}}
             </div>
 
             <p class="header__tittel">
@@ -48,13 +38,6 @@
             </p>
             <p>
                 {{ saksnummer }}
-            </p>
-
-            <p class="header__tittel">
-                Dato for varsel om tilbakekreving
-            </p>
-            <p>
-                {{ iso_to_date varselDato }}
             </p>
 
             {{# if tilsvar }}
