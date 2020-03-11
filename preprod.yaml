@@ -1,3 +1,2 @@
-namespace: default
 ingresses:
   - "https://fppdfgen.nais.oera-q.local"
