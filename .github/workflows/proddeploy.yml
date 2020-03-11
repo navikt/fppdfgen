@@ -38,3 +38,17 @@ jobs:
           CLUSTER: prod-sbs
           RESOURCE: naiserator.yaml
           VARS: prod.yaml
+  
+  deploy:
+    name: deploy to dev-sbs
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          PRINT_PAYLOAD: true
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-sbs
+          RESOURCE: naiserator.yaml
+          VARS: .yaml
