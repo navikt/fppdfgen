@@ -1,0 +1,76 @@
+{
+    "søker": {
+        "id": "12345678901",
+        "typeId": "fnr",
+        "navn": "Navn Navnesen"
+    },
+    "innsendtDato": "2019-09-09",
+    "antallBarn": "1",
+    "terminDato": "2020-01-01",
+    "terminBekreftetDato": "2019-12-31",
+    "landVedFødsel": "Norge",
+    "sporsmalgrupper": [
+        {
+            "overskrift": "Informasjon om barnet",
+            "sporsmal": [
+                {
+                    "sporsmalstekst": "Søknaden gjelder barn med fødselsdato 27. mars 2020.",
+                    "undertekst": "",
+                    "svartype": "IKKE_RELEVANT",
+                    "svar": [],
+                    "undersporsmal": []
+                }
+            ]
+        },
+        {
+            "overskrift": "Tilknytning til Norge",
+            "sporsmal": [
+                {
+                    "sporsmalstekst": "Utenlandsopphold siste 12 måneder",
+                    "undertekst": "Eksempel på undertekst i PERIODER-blokk.",
+                    "svartype": "PERIODER",
+                    "svar": [
+                        {
+                            "verdi": {
+                                "fom": "2019-08-09",
+                                "tom": "2019-08-10",
+                                "beskrivelse": "Azerbadsjan"
+                            }
+                        }
+                    ],
+                    "undersporsmal": []
+                },
+                {
+                    "sporsmalstekst": "Utenlandsopphold neste 12 måneder",
+                    "undertekst": null,
+                    "svartype": "PERIODER",
+                    "svar": [
+                        {
+                            "verdi": {
+                                "fom": "2019-08-09",
+                                "tom": "2019-08-10",
+                                "beskrivelse": "Azerbadsjan"
+                            }
+                        },
+                        {
+                            "verdi": {
+                                "fom": "2019-08-09",
+                                "tom": null,
+                                "beskrivelse": "Danmark"
+                            }
+                        }
+                    ],
+                    "undersporsmal": []
+                }
+            ]
+        }
+    ],
+    "annenForelder": {
+        "id": "0000123456",
+        "typeId": "dnr",
+        "navn": "HEISANN SVEISANN",
+        "type": "utenlandsk",
+        "bosattLand": "Georgia",
+        "nasjonalitet": "Russisk"
+    }
+}
