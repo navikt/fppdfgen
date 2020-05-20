@@ -27,7 +27,7 @@ jobs:
           docker push $IMAGE
 
   deploy:
-    name: deploy to dev-sbs
+    name: deploy to dev-fss
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -36,6 +36,6 @@ jobs:
         env:
           PRINT_PAYLOAD: true
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-sbs
+          CLUSTER: dev-fss
           RESOURCE: naiserator.yaml
           VARS: preprod.yaml

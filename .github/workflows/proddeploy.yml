@@ -26,7 +26,7 @@ jobs:
           docker push $IMAGE
 
   deploy:
-    name: deploy to prod-sbs
+    name: deploy to prod-fss
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -35,6 +35,6 @@ jobs:
         env:
           PRINT_PAYLOAD: true
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: prod-sbs
+          CLUSTER: prod-fss
           RESOURCE: naiserator.yaml
           VARS: prod.yaml
