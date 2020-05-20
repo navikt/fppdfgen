@@ -1,2 +1,2 @@
 ingresses:
-  - "https://fppdfgen.nais.oera-q.local"
+  - "https://fppdfgen.nais.preprod.local"
