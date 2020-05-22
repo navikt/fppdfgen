@@ -9,7 +9,7 @@
                 {{# if undersporsmal }}
                     <div class="oppsummering__undersporsmalsliste">
                         {{# each undersporsmal as |underspm index| ~}}
-                            {{> syfosoknader/partials/blokkpartial underspm}}
+                            {{> soknad/partials/blokkpartial underspm}}
                         {{/each}}
                     </div>
                 {{/if}}
@@ -36,7 +36,7 @@
                 <p>{{ this.venstretekst }}</p>
                 {{#if this.underblokker}}
                     {{#each this.underblokker as |blokk index| ~}}
-                        {{> engangsstonad/partials/blokkpartial blokk}}
+                        {{> soknad/partials/blokkpartial blokk}}
                     {{/each}}
                 {{/if}}
             </td>
@@ -46,14 +46,14 @@
     </table>
 {{/eq}}
 
-{{#eq type "FELT"}} 
+{{#eq type "FELT"}}
     <div class="felt">
         <p class="typo-etikett-liten">{{felt}}</p>
         <p class="typo-element-feltoppsummering__verdi">{{verdi}}</p>
     </div>
 {{/eq}}
 
-{{#eq type "BULLETPOINT"}} 
+{{#eq type "BULLETPOINT"}}
     <div class="felt">
         <p class="typo-etikett-liten">{{spørsmålstekst}}</p>
         {{#each svar}}

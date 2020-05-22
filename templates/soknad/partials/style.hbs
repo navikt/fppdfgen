@@ -10,7 +10,7 @@
         }
     }
 
-    @page:first {
+    @page :first {
         margin-top: 0;
         @top-left {
             content: element(header);
@@ -69,6 +69,7 @@
     #pagenumber:before {
         content: counter(page);
     }
+
     #pagecount:before {
         content: counter(pages)
     }
@@ -229,8 +230,8 @@
     }
 
     .oppsummering__sporsmalscontainer:last-child {
-         margin-bottom: 0;
-     }
+        margin-bottom: 0;
+    }
 
     .oppsummering__sporsmal {
         margin-top: 0;
@@ -304,64 +305,63 @@
     .oppsummering__dato {
         margin-bottom: 0;
     }
+
     .oppsummering__dato:before {
-         content: "\2022";
-         display: inline-block;
-         width: .5em;
-         margin-right: .5em;
-     }
+        content: "\2022";
+        display: inline-block;
+        width: .5em;
+        margin-right: .5em;
+    }
 
-     table {
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-          margin-bottom: 1em;
+    table {
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1em;
         padding-bottom: 1.5em;
-}
+    }
 
-td {
-  padding: 5px;
-  vertical-align: top;
-}
+    td {
+        padding: 5px;
+        vertical-align: top;
+    }
 
-/* tbody tr:nth-child(even) {
-  background: #eee;
-} */
-
-
-.oppsummeringsliste__element {
-    margin-top: 1.5rem;
-}
-
-.felt {
-    margin-bottom: 10px;
-}
-
-.underspm__elementer {
-    padding-left: 10px;
-}
-
-.oppsummeringsliste {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-}
-
-.feltoppsummering {
-    margin-bottom: 1rem;
-}
-
-.typo-etikett-liten {
-    font-size: .875rem;
-    line-height: 1.25rem;
-    text-transform: uppercase;
-}
-
-.typo-element-feltoppsummering__verdi {
-    font-size: 1rem;
-    line-height: 1.375rem;
-    font-weight: 400;
-}
+    /* tbody tr:nth-child(even) {
+      background: #eee;
+    } */
 
 
+    .oppsummeringsliste__element {
+        margin-top: 1.5rem;
+    }
+
+    .felt {
+        margin-bottom: 10px;
+    }
+
+    .underspm__elementer {
+        padding-left: 10px;
+    }
+
+    .oppsummeringsliste {
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .feltoppsummering {
+        margin-bottom: 1rem;
+    }
+
+    .typo-etikett-liten {
+        font-size: .875rem;
+        line-height: 1.25rem;
+        text-transform: uppercase;
+    }
+
+    .typo-element-feltoppsummering__verdi {
+        font-size: 1rem;
+        line-height: 1.375rem;
+        font-weight: 400;
+    }
 </style>

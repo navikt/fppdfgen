@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{> doctitle}}</title>
-    {{#block 'engangsstonad/partials/style' }}
+    {{#block 'soknad/partials/style' }}
     {{/block}}
 </head>
 <body>
@@ -41,7 +41,7 @@
         <h2>{{ gruppe.overskrift }}</h2>
         {{beskrivelse}}
             {{#each underblokker as |blokk|~}}
-                {{> engangsstonad/partials/blokkpartial blokk}}
+                {{> soknad/partials/blokkpartial blokk}}
             {{/each}}
         </div>
         {{/each}}
