@@ -1,0 +1,92 @@
+{
+    "dokument" : "Søknad om engangsstønad",
+    "søker" : {
+        "id" : "010101010101",
+        "typeId" : null,
+        "navn" : "Mor Mellommor Morsen",
+        "type" : null,
+        "bosattLand" : null,
+        "nasjonalitet" : null
+    },
+    "mottattdato" : {
+        "beskrivelse" : "Sendt til NAV",
+        "datotid" : "13.05.2020 13:09"
+    },
+    "grupper" : [ {
+        "type" : "GRUPPE",
+        "overskrift" : "Informasjon om barnet",
+        "beskrivelse" : null,
+        "underblokker" : [ {
+            "type" : "FRITEKST",
+            "tekst" : "Søknaden gjelder 1 barn med fødselsdato 13.04.2020."
+        } ]
+    }, {
+        "type" : "GRUPPE",
+        "overskrift" : "Informasjon om annen forelder",
+        "beskrivelse" : null,
+        "underblokker" : [ {
+            "type" : "FELT",
+            "felt" : "Nasjonalitet",
+            "verdi" : "Norsk"
+        }, {
+            "type" : "FELT",
+            "felt" : "Navn",
+            "verdi" : "Far Farsen"
+        }, {
+            "type" : "FELT",
+            "felt" : "Fødselsnummer",
+            "verdi" : "01010111111"
+        } ]
+    }, {
+        "type" : "GRUPPE",
+        "overskrift" : "Tilknytning til Norge",
+        "beskrivelse" : null,
+        "underblokker" : [ {
+            "type" : "TABELL",
+            "overskrift" : "De siste 12 månedene har jeg bodd i",
+            "tabellrader" : [ {
+                "type" : "TABELLRAD",
+                "venstretekst" : "Østerrike",
+                "høyretekst" : "13.05.2019 – 12.11.2019",
+                "underblokker" : null
+            }, {
+                "type" : "TABELLRAD",
+                "venstretekst" : "Finland",
+                "høyretekst" : "13.11.2019 – 13.05.2020",
+                "underblokker" : null
+            } ]
+        }, {
+            "type" : "TABELL",
+            "overskrift" : "De neste 12 månedene skal jeg bo i",
+            "tabellrader" : [ {
+                "type" : "TABELLRAD",
+                "venstretekst" : "Hellas",
+                "høyretekst" : "13.05.2020 – 13.11.2020",
+                "underblokker" : null
+            }, {
+                "type" : "TABELLRAD",
+                "venstretekst" : "Hellas",
+                "høyretekst" : "13.05.2020 – 13.11.2020",
+                "underblokker" : null
+            }, {
+                "type" : "TABELLRAD",
+                "venstretekst" : "Hellas",
+                "høyretekst" : "13.05.2020 – 13.11.2020",
+                "underblokker" : null
+            }, {
+                "type" : "TABELLRAD",
+                "venstretekst" : "Hellas",
+                "høyretekst" : "13.05.2020 – 13.11.2020",
+                "underblokker" : null
+            }, {
+                "type" : "TABELLRAD",
+                "venstretekst" : "Tyskland",
+                "høyretekst" : "14.11.2020 – 13.05.2021",
+                "underblokker" : null
+            } ]
+        }, {
+            "type" : "FRITEKST",
+            "tekst" : "Jeg var i Finland da barnet ble født"
+        } ]
+    } ]
+}
