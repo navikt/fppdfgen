@@ -2,7 +2,7 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: fppdfgen
-  namespace: teamforeldrepenger
+  namespace: default
   labels:
     team: teamforeldrepenger
 spec:
