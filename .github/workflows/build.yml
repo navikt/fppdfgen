@@ -65,5 +65,5 @@ jobs:
                       issue_number: response.data.number }
                      github.issues.createComment({...issue,
                             title: 'Deploy av ${{ env.TAG }}',
-                            body: '/promote dev-fss default'})
+                            body: '/promote dev-fss '})
                });
