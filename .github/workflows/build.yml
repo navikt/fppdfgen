@@ -66,4 +66,7 @@ jobs:
                      github.issues.createComment({...issue,
                             title: 'Deploy av ${{ env.TAG }}',
                             body: '/promote dev-fss '})
+                     github.issues.createComment({...issue,
+                            title: 'Deploy av ${{ env.TAG }}',
+                            body: '/promote dev-gcp '})
                });
