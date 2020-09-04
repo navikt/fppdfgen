@@ -8,8 +8,8 @@ metadata:
 spec:
   accessPolicy:
     inbound:
-     rule:
-      - application: foreldrepengesoknad-api
+      rules:
+       - application: foreldrepengesoknad-api
   image: {{image}}
   ingresses:
   {{#each ingresses as |url|}}
