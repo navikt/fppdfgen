@@ -28,7 +28,7 @@ jobs:
           docker push ${IMAGE_BASE}
 
       - name: Lukk gamle bygg-issues
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4.1.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -50,7 +50,7 @@ jobs:
 
       - name: Opprett issue, trigg deploy til dev-fss
         if: success()
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4.1.1
         with:
           github-token: ${{secrets.NOTIFICATION}}
           script: |
