@@ -68,7 +68,7 @@ jobs:
         if: success()
         uses: actions/github-script@v5
         with:
-          github-token: ${secrets.READER_TOKEN}
+          github-token: ${{ secrets.READER_TOKEN }}
           script: |
             const issue = { owner: context.issue.owner,
                             repo: context.issue.repo,
