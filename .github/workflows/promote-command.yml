@@ -15,13 +15,12 @@ jobs:
 
       - name: Set variabler for image og cluster
         run: |
-           echo "::set-env name=TAG::$(echo ${{ github.event.client_payload.github.payload.issue.title }} | awk '{print $NF}' | awk -F- '{print $NF}')"
-           echo "::set-env name=IMAGE::$IMAGE_BASE:$(echo ${{ github.event.client_payload.github.payload.issue.title }} | awk '{print $NF}')"
-           echo "::set-env name=CLUSTER::${{ github.event.client_payload.slash_command.arg1 }}"
-
+          echo "TAG=$(echo '${{ github.event.issue.body }}')" >> $GITHUB_ENV
+          echo "IMAGE=$IMAGE_BASE:$(echo '${{  github.event.issue.title }}' | awk '{print $NF}')" >> $GITHUB_ENV
+          echo "CLUSTER=$(echo '${{github.event.comment.body}}' | cut -d' ' -f2)" >> $GITHUB_ENV
 
       - name: Sjekk ut kode
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           ref: ${{ env.TAG }}
 
