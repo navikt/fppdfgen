@@ -25,19 +25,19 @@ jobs:
           echo  ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
           docker push ${IMAGE_BASE}
 
-      - name: Lukk gamle bygg-issues
-        uses: actions/github-script@v3
+      - name: Lukk gamle deployment-issues
+        uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.issues.listForRepo({
+            github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
-              labels: ['bygg']
+              labels: ['deployment']
             }).then(response => {
               response.data.forEach(issue => {
-                github.issues.update({
+                github.rest.issues.update({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
@@ -48,9 +48,9 @@ jobs:
 
       - name: Opprett issue, trigg deploy til dev-fss
         if: success()
-        uses: actions/github-script@v3
+        uses: actions/github-script@v5
         with:
-          github-token: ${{secrets.NOTIFICATION}}
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.issues.create( {
               owner: context.issue.owner,
