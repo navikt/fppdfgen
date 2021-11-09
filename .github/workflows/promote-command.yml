@@ -4,7 +4,7 @@ on:
     types: [promote-command]
 env:
   NAMESPACE: teamforeldrepenger
-  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/fppdfgen
+  IMAGE_BASE: ghcr.io/${{ github.repository }}
   CLUSTER: ${{ github.event.client_payload.slash_command.args.unnamed.arg1 }} # dev-fss eller prod-fss
 
 jobs:
