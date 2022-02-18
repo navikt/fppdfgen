@@ -20,7 +20,7 @@ jobs:
         run: echo "TAG=$(date "+%Y.%m.%d")-$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
 
       - name: Login to GitHub Packages Docker Registry
-        uses: docker/login-action@31f1bb4610792058145ecedb9770b0145e118a96 # Use commit-sha1 instead of tag for security concerns
+        uses: docker/login-action@6af3c118c8376c675363897acf1757f7a9be6583 # Use commit-sha1 instead of tag for security concerns
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
