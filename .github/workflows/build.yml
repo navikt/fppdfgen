@@ -13,6 +13,7 @@ jobs:
   kompiler:
     runs-on: ubuntu-latest
     steps:
+
       - name: Sjekk ut kode
         uses: actions/checkout@v2
 
@@ -79,9 +80,6 @@ jobs:
             const issue = { owner: context.issue.owner,
                             repo: context.issue.repo,
                             issue_number: ${{ steps.createdeployissue.outputs.number }} }
-            github.rest.issues.createComment({...issue,
-                                    title: 'Deploy av ${{ env.TAG }}',
-                                    body: 'promote dev-sbs '})
             github.rest.issues.createComment({...issue,
                                     title: 'Deploy av ${{ env.TAG }}',
                                     body: '/promote dev-fss '})
