@@ -38,7 +38,7 @@ templates will look like in production.
 
 ## Contact us
 ### Code/project related questions can be sent to
-* Steffen Pøhner, `steffen.h.pohner@nav.no`
+* nav.team.foreldrepenger@nav.no
 
 ### For NAV employees
 We are also available on the slack channel #teamforeldrepenger for internal communication.
