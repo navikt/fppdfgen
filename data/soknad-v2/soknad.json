@@ -1,0 +1,89 @@
+{
+  "dokument" : "Søknad om engangsstønad",
+  "søker" : {
+    "id" : "010101010101",
+    "typeId" : null,
+    "navn" : "Mor Mellommor Morsen",
+    "type" : null,
+    "bosattLand" : null,
+    "nasjonalitet" : null
+  },
+  "mottattdato" : {
+    "beskrivelse" : "Sendt til NAV",
+    "datotid" : "08.03.2022 15:57"
+  },
+  "temaer" : [ {
+    "type" : "TEMA",
+    "overskrift" : "Informasjon om barnet",
+    "underblokker" : [ {
+      "type" : "FRITEKST",
+      "tekst" : "Søknaden gjelder 1 barn med fødselsdato 08.02.2022."
+    } ]
+  }, {
+    "type" : "TEMA",
+    "overskrift" : "Informasjon om annen forelder",
+    "underblokker" : [ {
+      "type" : "FELT",
+      "felt" : "Nasjonalitet",
+      "verdi" : "Norsk"
+    }, {
+      "type" : "FELT",
+      "felt" : "Navn",
+      "verdi" : "Far Farsen"
+    }, {
+      "type" : "FELT",
+      "felt" : "Fødselsnummer",
+      "verdi" : "01010111111"
+    } ]
+  }, {
+    "type" : "TEMA",
+    "overskrift" : "Tilknytning til Norge",
+    "underblokker" : [ {
+      "type" : "GRUPPE",
+      "overskrift" : "De siste 12 månedene har jeg bodd i",
+      "tabellrader" : [ {
+        "type" : "TABELLRAD",
+        "venstretekst" : "Østerrike",
+        "høyretekst" : "08.03.2021 – 07.09.2021",
+        "underblokker" : null
+      }, {
+        "type" : "TABELLRAD",
+        "venstretekst" : "Finland",
+        "høyretekst" : "08.09.2021 – 08.03.2022",
+        "underblokker" : null
+      } ]
+    }, {
+      "type" : "GRUPPE",
+      "overskrift" : "De neste 12 månedene skal jeg bo i",
+      "tabellrader" : [ {
+        "type" : "TABELLRAD",
+        "venstretekst" : "Hellas",
+        "høyretekst" : "08.03.2022 – 08.09.2022",
+        "underblokker" : null
+      }, {
+        "type" : "TABELLRAD",
+        "venstretekst" : "Hellas",
+        "høyretekst" : "08.03.2022 – 08.09.2022",
+        "underblokker" : null
+      }, {
+        "type" : "TABELLRAD",
+        "venstretekst" : "Hellas",
+        "høyretekst" : "08.03.2022 – 08.09.2022",
+        "underblokker" : null
+      }, {
+        "type" : "TABELLRAD",
+        "venstretekst" : "Hellas",
+        "høyretekst" : "08.03.2022 – 08.09.2022",
+        "underblokker" : null
+      }, {
+        "type" : "TABELLRAD",
+        "venstretekst" : "Tyskland",
+        "høyretekst" : "09.09.2022 – 08.03.2023",
+        "underblokker" : null
+      } ]
+    }, {
+      "type" : "FRITEKST",
+      "tekst" : "Jeg var i Finland da barnet ble født"
+    } ]
+  } ]
+}
