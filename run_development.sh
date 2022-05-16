@@ -9,8 +9,9 @@ docker run \
         -v $CURRENT_PATH/fonts:/app/fonts \
         -v $CURRENT_PATH/data:/app/data \
         -v $CURRENT_PATH/resources:/app/resources \
+        -v $CURRENT_PATH/logback-local-test.xml:/app/logback-local-test.xml \
         -p 8180:8080 \
-	-e JAVA_OPTS='-Dlogback.configurationFile=logback-remote-debug.xml' \
+        -e JDK_JAVA_OPTIONS='-Dlogback.configurationFile=logback-test.xml' \
         -e DISABLE_PDF_GET=false \
         -it \
         --rm \
