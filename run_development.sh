@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 CURRENT_PATH="$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+IMAGE_VERSION="1.5.0"
 
-docker pull navikt/pdfgen:latest
+docker pull ghcr.io/navikt/pdfgen:$IMAGE_VERSION
 docker run \
         -v $CURRENT_PATH/templates:/app/templates \
         -v $CURRENT_PATH/fonts:/app/fonts \
@@ -13,4 +14,4 @@ docker run \
         -e DISABLE_PDF_GET=false \
         -it \
         --rm \
-        navikt/pdfgen:latest
+        ghcr.io/navikt/pdfgen:$IMAGE_VERSION
