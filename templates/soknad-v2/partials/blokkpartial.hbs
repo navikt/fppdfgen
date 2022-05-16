@@ -1,57 +1,3 @@
-{{#eq type "CHECKBOX"}}
-    {{#each svar as |s index|~}}
-        {{#if checked}}
-            <div class="oppsummering__sporsmalscontainer">
-                <div class="oppsummering__avkrysset">
-                    <img class="checkbox" src="{{ image "Checkboks.png" }}"/>
-                    <span class="svar svar--checkbox">{{ spørsmålstekst }}</span>
-                </div>
-                {{# if undersporsmal }}
-                    <div class="oppsummering__undersporsmalsliste">
-                        {{# each undersporsmal as |underspm index| ~}}
-                            {{> soknad-v2/partials/blokkpartial underspm}}
-                        {{/each}}
-                    </div>
-                {{/if}}
-            </div>
-        {{/if}}
-    {{/each}}
-{{/eq}}
-
-{{#eq type "TABELL_OLD"}}
-    {{#if this.overskrift}}
-        <div class="tabellcontainer">
-            <p class="typo-etikett-liten">
-                {{ this.overskrift }}
-            </p>
-    {{/if}}
-    {{#if this.undertekst}}
-            <p class="undertekst">
-                {{ this.undertekst }}
-            </p>
-    {{/if }}
-        <table>
-            {{#each tabellrader}}
-                <tr>
-                    <td>
-                        <p>{{ this.venstretekst }}</p>
-                    </td>
-                    <td><p>{{ this.høyretekst }}</p></td>
-                </tr>
-                {{#if this.underblokker}}
-                    {{#each this.underblokker as |blokk index| ~}}
-                        <tr>
-                            <td colspan="2">
-                                {{> soknad-v2/partials/blokkpartial blokk}}
-                            <td>
-                        </tr>
-                    {{/each}}
-                {{/if}}
-            {{/each}}
-        </table>
-    </div>
-{{/eq}}
-
 {{#eq type "TABELL"}}
     {{#if this.overskrift}}
         <div class="tabellcontainer">
@@ -125,15 +71,6 @@
         <p class="element-overskrift">{{ this.overskrift }}</p>
         {{#each tabellrader as |blokk index| ~}}
                 {{> soknad-v2/partials/blokkpartial blokk}}
-        {{/each}}
-    </div>
-{{/eq}}
-
-{{#eq type "BULLETPOINT"}}
-    <div class="element felt">
-        <p class="typo-etikett-liten">{{spørsmålstekst}}</p>
-        {{#each svar}}
-            <p class="typo-element-feltoppsummering__verdi"> – {{svar}}</p>
         {{/each}}
     </div>
 {{/eq}}
