@@ -8,7 +8,6 @@
     {{#if this.undertekst}}
             <p>{{ this.undertekst }}</p>
     {{/if }}
-
     {{#each tabellrader}}
             <div class="gruppeelement">
                 <div class="leftCol">
@@ -19,7 +18,6 @@
                     <p>{{ this.høyretekst }}</p>
                 </div>
             </div>
-
         {{#if this.underblokker}}
             {{#each this.underblokker as |blokk index| ~}}
                     <div class="gruppeelement">
@@ -30,7 +28,6 @@
     {{/each}}
     </div>
 {{/eq}}
-
 {{#eq type "TABELLRAD"}}
     <div class="blokk">
         <div class="leftCol">
@@ -42,7 +39,6 @@
         </div>
     </div>
 {{/eq}}
-
 {{#eq type "LISTE"}}
     <div class="felt">
         <div class="venstre">
@@ -58,14 +54,12 @@
         </div>
     </div>
 {{/eq}}
-
 {{#eq type "FELT"}}
     <div class="felt avoid-page-break">
         <p class="element-overskrift">{{ this.felt }}</p>
         <p>{{ this.verdi }}</p>
     </div>
 {{/eq}}
-
 {{#eq type "GRUPPE"}}
     <div class="avoid-page-break">
         <p class="element-overskrift">{{ this.overskrift }}</p>
@@ -74,7 +68,6 @@
         {{/each}}
     </div>
 {{/eq}}
-
 {{#eq type "FRITEKST"}}
     <div class="element">
         <p>{{ this.tekst }}</p>
