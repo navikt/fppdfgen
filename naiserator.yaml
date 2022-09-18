@@ -17,8 +17,8 @@ spec:
   {{/each}}
   port: 8080
   replicas:
-    min: 2
-    max: 2
+    min: {{minReplicas}}
+    max: {{maxReplicas}}
     cpuThresholdPercentage: 70
   liveness:
     path: /is_alive
@@ -37,8 +37,8 @@ spec:
     path: /prometheus
   resources:
     limits:
-      cpu: 400m
+      cpu: 1400m
       memory: 512Mi
     requests:
-      cpu: 50m
+      cpu: 1050m
       memory: 128Mi

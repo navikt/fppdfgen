@@ -1,3 +1,5 @@
 {
-  "ingresses": ["https://fppdfgen.nais.preprod.local"]
+  "ingresses": ["https://fppdfgen.nais.preprod.local"],
+  "minReplicas": "1",
+  "maxReplicas": "2"
 }

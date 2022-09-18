@@ -1,3 +1,5 @@
 {
-  "ingresses": ["https://fppdfgen.intern.nav.no"]
+  "ingresses": ["https://fppdfgen.intern.nav.no"],
+  "minReplicas": "2",
+  "maxReplicas": "3"
 }

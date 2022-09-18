@@ -1,3 +1,5 @@
 {
-  "ingresses": ["https://fppdfgen.nais.adeo.no"]
+  "ingresses": ["https://fppdfgen.nais.adeo.no"],
+  "minReplicas": "2",
+  "maxReplicas": "3"
 }
