@@ -1,0 +1,88 @@
+name: Promote to env
+
+on:
+  workflow_call:
+    inputs:
+      cluster:
+        required: true
+        type: string
+        description: 'The clusters to deploy to. Comma separated list if many.'
+      namespace:
+        required: false
+        type: string
+        description: 'The namespace(s) to deploy to. Comma separated list if many.'
+        default: 'teamforeldrepenger'
+      issue-number:
+        required: true
+        type: string
+        description: 'The deployment issue.'
+
+jobs:
+  promote:
+    name: promote
+    runs-on: 'ubuntu-latest'
+    strategy:
+      matrix:
+        cluster: [ ${{ inputs.cluster }} ]
+        namespace: [ ${{ inputs.namespace }} ]
+    steps:
+      - name: Get information from issue
+        id: issue_comment
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.get( {
+              owner: context.issue.owner,
+              repo: context.issue.repo,
+              issue_number: ${{ inputs.issue-number }} })
+            .then(response => {
+              core.setOutput('sha', response.data.body);
+              core.setOutput('title', response.data.title);
+            });
+
+      - name: Setter IMAGE som brukes i deploy filen
+        run: echo "IMAGE=ghcr.io/${{ github.repository }}:$(echo ${{ steps.issue_comment.outputs.title }} | awk '{print $NF}')" >> $GITHUB_ENV
+
+      - name: Checkout ${{ steps.issue_comment.outputs.sha }}
+        uses: actions/checkout@v3.1.0
+        with:
+          ref: ${{ steps.issue_comment.outputs.sha }}
+
+      - name: Deploy to ${{ matrix.cluster }}
+        id: deploy
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          PRINT_PAYLOAD: true
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: ${{ matrix.cluster }}
+          RESOURCE: .deploy/naiserator.yaml
+          VARS: .deploy/${{ matrix.cluster }}-${{ matrix.namespace }}.json
+
+      - name: Oppdater kommentar med deployment status ved feil mot ${{ matrix.cluster }}
+        if: steps.deploy.outcome != 'success'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = { owner: context.issue.owner,
+                            repo: context.issue.repo,
+                            issue_number: ${{ inputs.issue-number }} }
+            github.rest.issues.createComment({...issue,
+                            body: 'promote til ${{ matrix.cluster }} ${{ matrix.namespace }} feilet'})
+            github.rest.issues.addLabels({...issue,
+                            labels: ['deployment-failed']})
+
+      - name: Oppdater kommentar med deployment status mot ${{ matrix.cluster }}
+        if: steps.deploy.outcome == 'success'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = { owner: context.issue.owner,
+                            repo: context.issue.repo,
+                            issue_number: ${{ inputs.issue-number }} }
+            github.rest.issues.createComment({...issue,
+                            body: 'promote til ${{ matrix.cluster }} ${{ matrix.namespace }} utført'})
+            github.rest.issues.addLabels({...issue,
+                            labels: ['deployment','${{ matrix.cluster }}-${{ matrix.namespace }}']})

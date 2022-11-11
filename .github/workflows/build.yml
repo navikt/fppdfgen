@@ -1,90 +1,86 @@
-name: Deployment pipeline dev
+name: Build and deploy
 
 on:
   push:
     branches:
-      - master
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  GITHUB_USERNAME: x-access-token
-  IMAGE_BASE: ghcr.io/${{ github.repository }}
+      - '**'
+    paths-ignore:
+      - '**.md'
+      - '**.MD'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'CODEOWNERS'
+      - 'dokumentasjon/**'
+      - 'lokalutvikling/**'
 
 jobs:
-  kompiler:
+  build-app:
+    name: Build and test
     runs-on: ubuntu-latest
+    outputs:
+      build-version: ${{ steps.generate-build-version.outputs.build-version }}
     steps:
-
-      - name: Sjekk ut kode
-        uses: actions/checkout@v3
-
-      - name: Hent tag
-        run: echo "TAG=$(date "+%Y.%m.%d")-$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+      - name: Checkout code
+        uses: actions/checkout@v3.1.0
 
       - name: Login to GitHub Packages Docker Registry
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # Use commit-sha1 instead of tag for security concerns
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Bygg, tag og push Docker image
+      - name: Generate build version
+        id: generate-build-version
         run: |
-          docker build --pull --tag ${IMAGE_BASE}:${TAG} --tag ${IMAGE_BASE}:latest .
-          docker push ${IMAGE_BASE} --all-tags
+          echo "build-version=$(date +%Y.%m.%d.%H%M%S)-$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
 
-      - name: Lukk gamle deployment-issues
-        uses: actions/github-script@v6
+      - name: Print build version
+        run: echo "Generated build-version is ${{ steps.generate-build-version.outputs.build-version }}"
+
+      - name: Set up QEMU
+        if: github.ref_name == 'master'
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        if: github.ref_name == 'master'
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push
+        if: github.ref_name == 'master'
+        uses: docker/build-push-action@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: ['deployment']
-            }).then(response => {
-              response.data.forEach(issue => {
-                github.rest.issues.update({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  state: 'closed'
-                });
-              });
-            });
+          context: .
+          platforms: linux/amd64, linux/arm64
+          pull: true
+          push: ${{ github.ref_name == 'master' }}
+          tags: ghcr.io/${{ github.repository }}:${{ steps.generate-build-version.outputs.build-version }}, ghcr.io/${{ github.repository }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      -  name: Opprett deployment issue
-         id: createdeployissue
-         if: success()
-         uses: actions/github-script@v6
-         with:
-           github-token: ${{ secrets.GITHUB_TOKEN }}
-           script: |
-               github.rest.issues.create( {
-                 owner: context.issue.owner,
-                 repo: context.issue.repo,
-                 labels: ['deployment'],
-                 title: 'Deploy av ${{ env.TAG }}',
-                 body: '${{ github.sha }}'})
-               .then(response => {
-                       core.setOutput('number', response.data.number);
-                });
+  create-issue:
+    name: Issues
+    if: github.ref_name == 'master'
+    needs: build-app
+    uses: navikt/fp-gha-workflows/.github/workflows/issues.yml@main
+    with:
+      build-version: ${{ needs.build-app.outputs.build-version }}
+    secrets: inherit
 
+  promote:
+    name: Deploy til dev-gcp
+    if: github.ref_name == 'master'
+    needs: [ build-app, create-issue ]
+    uses: navikt/fppdfgen/.github/workflows/promote-test.yml@main
+    with:
+      issue-number: ${{ needs.create-issue.outputs.issue-number }}
+      cluster: dev-fss, dev-gcp
+    secrets: inherit
 
-      - name: Trigg deploy til dev-fss, dev-sbs og dev-gcp
-        if: success()
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.NOTIFICATION }}
-          script: |
-            const issue = { owner: context.issue.owner,
-                            repo: context.issue.repo,
-                            issue_number: ${{ steps.createdeployissue.outputs.number }} }
-            github.rest.issues.createComment({...issue,
-                                    title: 'Deploy av ${{ env.TAG }}',
-                                    body: '/promote dev-fss '})
-            github.rest.issues.createComment({...issue,
-                                    title: 'Deploy av ${{ env.TAG }}',
-                                    body: '/promote dev-gcp '})
-
-
+  snyk:
+    name: Snyk
+    needs: build-app
+    uses: navikt/fp-gha-workflows/.github/workflows/snyk.yml@main
+    with:
+      build-version: ${{ needs.build-app.outputs.build-version }}
+    secrets: inherit
