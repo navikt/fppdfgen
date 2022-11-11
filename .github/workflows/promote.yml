@@ -6,9 +6,8 @@ on:
 jobs:
   promote:
     name: Deploy
-    uses: navikt/fp-gha-workflows/.github/workflows/promote-test.yml@main
+    uses: navikt/fp-gha-workflows/.github/workflows/promote.yml@main
     with:
       issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
-      cluster: '[${{ github.event.client_payload.slash_command.args.unnamed.arg1 }}]'
-      namespace: '["teamforeldrepenger"]'
+      cluster: ${{ github.event.client_payload.slash_command.args.unnamed.arg1 }}
     secrets: inherit
