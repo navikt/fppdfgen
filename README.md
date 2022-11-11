@@ -14,7 +14,7 @@ docker run \
         -v /full/path/to/fonts:/app/fonts \
         -v /full/path/to/data:/app/data \
         -v /full/path/to/resources:/app/resources \
-        -p 8080:8080 \
+        -p 8180:8080 \
         -e DISABLE_PDF_GET=false \
         -it \
         --rm \
@@ -29,7 +29,7 @@ a PDF to your browser. Additionally, the template folder will be fetched on ever
 since the last GET, making this ideal for developing new templates for your application.
 
 The template and data directory structure both follow the `<application>/<template>` structure.
-Example url: `http://0.0.0.0:8080/api/v1/genpdf/tilbakebetaling/tilbakebetaling`
+Example url: `http://0.0.0.0:8180/api/v1/genpdf/tilbakebetaling/tilbakebetaling`
 
 ### Notes on developing templates on Windows
 It is a known issue that pdfgen's output documents look different depending on whether the template
