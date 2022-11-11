@@ -9,5 +9,5 @@ jobs:
     uses: navikt/fp-gha-workflows/.github/workflows/promote-test.yml@main
     with:
       issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
-      cluster: [${{ github.event.client_payload.slash_command.args.unnamed.arg1 }}]
+      cluster: '[${{ github.event.client_payload.slash_command.args.unnamed.arg1 }}]'
     secrets: inherit
