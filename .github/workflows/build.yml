@@ -65,13 +65,12 @@ jobs:
     secrets: inherit
 
   promote:
-    name: Deploy til dev-gcp
+    name: Deploy
     if: github.ref_name == 'master'
     needs: [ build-app, create-issue ]
     uses: navikt/fp-gha-workflows/.github/workflows/promote-test.yml@main
     with:
       issue-number: ${{ needs.create-issue.outputs.issue-number }}
       cluster: '["dev-fss", "dev-gcp"]'
-      namespace: '["teamforeldrepenger"]'
     secrets: inherit
 
