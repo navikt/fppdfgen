@@ -72,5 +72,6 @@ jobs:
     with:
       issue-number: ${{ needs.create-issue.outputs.issue-number }}
       cluster: '["dev-fss", "dev-gcp"]'
+      namespace: '["teamforeldrepenger"]'
     secrets: inherit
 
