@@ -15,7 +15,7 @@ jobs:
     secrets: inherit
 
   promote-dev-gcp:
-    name: Deploy dev
+    name: Deploy dev-gcp
     if: contains(github.event.client_payload.slash_command.args.unnamed.all, 'dev')
     uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
     with:
@@ -25,9 +25,12 @@ jobs:
     secrets: inherit
 
   promote-prod-fss:
-    name: Deploy prod
+    name: Deploy prod-fss
     needs: [promote-dev-fss, promote-dev-gcp]
-    if: success() && contains(github.event.client_payload.slash_command.args.unnamed.all, 'prod')
+    if: |
+      always() &&
+      contains(github.event.client_payload.slash_command.args.unnamed.all, 'prod') &&
+      contains(fromJson('["success", "skipped"]'), needs.*.result)
     uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
     with:
       issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
@@ -36,9 +39,12 @@ jobs:
     secrets: inherit
 
   promote-prod-gcp:
-    name: Deploy prod
+    name: Deploy prod-gcp
     needs: [promote-dev-fss, promote-dev-gcp]
-    if: success() && contains(github.event.client_payload.slash_command.args.unnamed.all, 'prod')
+    if: |
+      always() &&
+      contains(github.event.client_payload.slash_command.args.unnamed.all, 'prod') &&
+      contains(fromJson('["success", "skipped"]'), needs.*.result)
     uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
     with:
       issue-number: ${{ github.event.client_payload.github.payload.issue.number }}

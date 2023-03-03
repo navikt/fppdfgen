@@ -76,7 +76,7 @@ jobs:
     secrets: inherit
 
   promote-dev-gcp:
-    name: Deploy dev
+    name: Deploy dev-gcp
     if: github.ref_name == 'master'
     needs: [ build-app, create-issue ]
     uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
