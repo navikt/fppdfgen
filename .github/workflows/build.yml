@@ -68,7 +68,7 @@ jobs:
     name: Deploy dev-fss
     if: github.ref_name == 'master'
     needs: [ build-app, create-issue ]
-    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@main
     with:
       issue-number: ${{ needs.create-issue.outputs.issue-number }}
       environment: dev
@@ -79,7 +79,7 @@ jobs:
     name: Deploy dev-gcp
     if: github.ref_name == 'master'
     needs: [ build-app, create-issue ]
-    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@main
     with:
       issue-number: ${{ needs.create-issue.outputs.issue-number }}
       environment: dev
