@@ -64,13 +64,24 @@ jobs:
       build-version: ${{ needs.build-app.outputs.build-version }}
     secrets: inherit
 
-  promote:
-    name: Deploy
+  promote-dev-fss:
+    name: Deploy dev-fss
     if: github.ref_name == 'master'
     needs: [ build-app, create-issue ]
-    uses: navikt/fp-gha-workflows/.github/workflows/promote-matrix.yml@main
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
     with:
       issue-number: ${{ needs.create-issue.outputs.issue-number }}
-      cluster: '["dev-fss", "dev-gcp"]'
+      environment: dev
+      platform: fss
     secrets: inherit
 
+  promote-dev-gcp:
+    name: Deploy dev
+    if: github.ref_name == 'master'
+    needs: [ build-app, create-issue ]
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
+    with:
+      issue-number: ${{ needs.create-issue.outputs.issue-number }}
+      environment: dev
+      platform: gcp
+    secrets: inherit

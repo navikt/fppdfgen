@@ -4,10 +4,44 @@ on:
     types: [promote-command]
 
 jobs:
-  promote:
-    name: Deploy
-    uses: navikt/fp-gha-workflows/.github/workflows/promote.yml@main
+  promote-dev-fss:
+    name: Deploy dev-fss
+    if: contains(github.event.client_payload.slash_command.args.unnamed.all, 'dev')
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
     with:
       issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
-      cluster: ${{ github.event.client_payload.slash_command.args.unnamed.arg1 }}
+      environment: dev
+      platform: fss
+    secrets: inherit
+
+  promote-dev-gcp:
+    name: Deploy dev
+    if: contains(github.event.client_payload.slash_command.args.unnamed.all, 'dev')
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
+    with:
+      issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
+      environment: dev
+      platform: gcp
+    secrets: inherit
+
+  promote-prod-fss:
+    name: Deploy prod
+    needs: [promote-dev-fss, promote-dev-gcp]
+    if: success() && contains(github.event.client_payload.slash_command.args.unnamed.all, 'prod')
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
+    with:
+      issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
+      environment: prod
+      platform: fss
+    secrets: inherit
+
+  promote-prod-gcp:
+    name: Deploy prod
+    needs: [promote-dev-fss, promote-dev-gcp]
+    if: success() && contains(github.event.client_payload.slash_command.args.unnamed.all, 'prod')
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@rydding
+    with:
+      issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
+      environment: prod
+      platform: gcp
     secrets: inherit
