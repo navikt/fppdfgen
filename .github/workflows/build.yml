@@ -55,33 +55,42 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  create-issue:
-    name: Issues
-    if: github.ref_name == 'master'
-    needs: build-app
-    uses: navikt/fp-gha-workflows/.github/workflows/issues.yml@main
-    with:
-      build-version: ${{ needs.build-app.outputs.build-version }}
-    secrets: inherit
-
-  promote-dev-fss:
-    name: Deploy dev-fss
-    if: github.ref_name == 'master'
-    needs: [ build-app, create-issue ]
-    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@main
-    with:
-      issue-number: ${{ needs.create-issue.outputs.issue-number }}
-      environment: dev
-      platform: fss
-    secrets: inherit
-
-  promote-dev-gcp:
+  deploy-dev-gcp:
     name: Deploy dev-gcp
     if: github.ref_name == 'master'
-    needs: [ build-app, create-issue ]
-    uses: navikt/fp-gha-workflows/.github/workflows/deploy-app.yml@main
+    needs: build-app
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy.yml@main
     with:
-      issue-number: ${{ needs.create-issue.outputs.issue-number }}
-      environment: dev
-      platform: gcp
+      image: ghcr.io/${{ github.repository }}:${{ needs.build-app.outputs.build-version }}
+      cluster: dev-gcp
+    secrets: inherit
+
+  deploy-dev-fss:
+    name: Deploy dev-fss
+    if: github.ref_name == 'master'
+    needs: build-app
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy.yml@main
+    with:
+      image: ghcr.io/${{ github.repository }}:${{ needs.build-app.outputs.build-version }}
+      cluster: dev-fss
+    secrets: inherit
+
+  deploy-prod-gcp:
+    name: Deploy prod-gcp
+    if: github.ref_name == 'master'
+    needs: [build-app, deploy-dev-gcp]
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy.yml@main
+    with:
+      image: ghcr.io/${{ github.repository }}:${{ needs.build-app.outputs.build-version }}
+      cluster: prod-gcp
+    secrets: inherit
+
+  deploy-prod-fss:
+    name: Deploy prod-fss
+    if: github.ref_name == 'master'
+    needs: [build-app, deploy-dev-fss]
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy.yml@main
+    with:
+      image: ghcr.io/${{ github.repository }}:${{ needs.build-app.outputs.build-version }}
+      cluster: prod-fss
     secrets: inherit
