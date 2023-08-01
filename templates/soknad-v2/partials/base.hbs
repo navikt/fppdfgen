@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
+    <meta name="subject" content="{{> doctitle}}"/>
+    <meta name="author" content="pdfgen"/>
+    <meta name="description" content="{{> doctitle}}"/>
     <title>{{> doctitle}}</title>
     {{#block 'soknad-v2/partials/style' }}
     {{/block}}
 </head>
 <body>
 <div id="header">
-    <img class="navlogo" src="{{ image "Hvit-resized.png" }}" />
+    <img class="navlogo" alt="NAV-logo" src="{{ image "Hvit-resized.png" }}" />
     <h1 class="title">{{> title}}</h1>
 </div>
 <div class="container">
     <div class="personinfo">
         <div class="persontekst">
             <div class="persontekst__sidetopp">
-                <img class="personikon" src="{{ image "Personikon.png" }}"/>
+                <img class="personikon" alt="Personikon" src="{{ image "Personikon.png" }}"/>
                 <div class="persontekst__personalia">
                     <p class="navn">
                         {{ søker.navn }}
