@@ -1,5 +1,5 @@
 {
-  "ingresses": ["https://fppdfgen.intern.dev.nav.no"],
+  "consumers": ["foreldrepengesoknad-api"],
   "minReplicas": "1",
   "maxReplicas": "2"
 }

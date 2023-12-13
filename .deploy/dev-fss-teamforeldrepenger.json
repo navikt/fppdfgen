@@ -1,5 +1,5 @@
 {
-  "ingresses": ["https://fppdfgen.nais.preprod.local"],
+  "consumers": ["fpsoknad-mottak"],
   "minReplicas": "1",
   "maxReplicas": "2"
 }

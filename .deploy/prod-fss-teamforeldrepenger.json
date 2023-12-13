@@ -1,5 +1,5 @@
 {
-  "ingresses": ["https://fppdfgen.nais.adeo.no"],
+  "consumers": ["fpsoknad-mottak"],
   "minReplicas": "2",
   "maxReplicas": "3"
 }
