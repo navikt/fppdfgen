@@ -9,12 +9,10 @@ spec:
   accessPolicy:
     inbound:
       rules:
-       - application: foreldrepengesoknad-api
-  image: {{image}}
-  ingresses:
-  {{#each ingresses as |url|}}
-     - {{url}}
+  {{#each consumers as |app|}}
+      - application: {{app}}
   {{/each}}
+  image: {{image}}
   port: 8080
   replicas:
     min: {{minReplicas}}
