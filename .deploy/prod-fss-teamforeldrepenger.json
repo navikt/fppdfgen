@@ -1,5 +1,4 @@
 {
-  "consumers": ["fpsoknad-mottak"],
   "minReplicas": "2",
   "maxReplicas": "3"
 }
