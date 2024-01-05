@@ -52,19 +52,6 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
 
-  deploy-dev-gcp:
-    name: Deploy dev-gcp
-    permissions:
-      id-token: write
-    if: github.ref_name == 'master'
-    needs: build-app
-    uses: navikt/fp-gha-workflows/.github/workflows/deploy.yml@main
-    with:
-      gar: true
-      image: ${{ needs.build-app.outputs.build-version }}
-      cluster: dev-gcp
-    secrets: inherit
-
   deploy-dev-fss:
     name: Deploy dev-fss
     permissions:
@@ -76,19 +63,6 @@ jobs:
       gar: true
       image: ${{ needs.build-app.outputs.build-version }}
       cluster: dev-fss
-    secrets: inherit
-
-  deploy-prod-gcp:
-    name: Deploy prod-gcp
-    permissions:
-      id-token: write
-    if: github.ref_name == 'master'
-    needs: [build-app, deploy-dev-gcp]
-    uses: navikt/fp-gha-workflows/.github/workflows/deploy.yml@main
-    with:
-      gar: true
-      image: ${{ needs.build-app.outputs.build-version }}
-      cluster: prod-gcp
     secrets: inherit
 
   deploy-prod-fss:

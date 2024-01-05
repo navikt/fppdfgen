@@ -6,12 +6,6 @@ metadata:
   labels:
     team: teamforeldrepenger
 spec:
-  accessPolicy:
-    inbound:
-      rules:
-  {{#each consumers as |app|}}
-      - application: {{app}}
-  {{/each}}
   image: {{image}}
   port: 8080
   replicas:
