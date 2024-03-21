@@ -1,7 +1,7 @@
 {{#eq type "TABELL"}}
     {{#if this.overskrift}}
         <div class="tabellcontainer">
-            <p class="element-overskrift"> <!-- typo-etikett-liten -->
+            <p class="element-overskrift">
                 {{ this.overskrift }}
             </p>
     {{/if}}
@@ -47,7 +47,7 @@
         <div class="venstre">
             {{#each punkter}}
                 <div>
-                    <img class="vedleggikon" src="{{ image "vedlegg.png" }}"/>
+                    <img class="vedleggikon" alt="Vedleggikon" src="{{ image "vedlegg.png" }}"/>
                     <p class="inline">{{ this }}</p>
                 </div>
             {{/each}}

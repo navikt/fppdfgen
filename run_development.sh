@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CURRENT_PATH="$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
-IMAGE_VERSION="2.0.21"
+IMAGE_VERSION="2.0.28"
 
 docker pull ghcr.io/navikt/pdfgen:$IMAGE_VERSION
 docker run \
@@ -13,6 +13,7 @@ docker run \
         -p 8180:8080 \
         -e JDK_JAVA_OPTIONS='-Dlogback.configurationFile=logback-local-test.xml' \
         -e DISABLE_PDF_GET=false \
+        -e ENABLE_HTML_ENDPOINT=true \
         -it \
         --rm \
         ghcr.io/navikt/pdfgen:$IMAGE_VERSION
